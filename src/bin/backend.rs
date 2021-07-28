@@ -2,14 +2,32 @@
 
 #[macro_use]
 extern crate rocket;
+#[macro_use]
+extern crate rocket_contrib;
+#[macro_use]
+extern crate serde;
 
+use rocket_contrib::json::Json;
 use full_stack::db::models::Task;
 use full_stack::db::{query_task, establish_connection};
 
-#[get("/tasks")]
-fn tasks_get() -> String {
-    "This is a response\n".into()
+#[derive(Serialize)]
+struct JsonApiResponse {
+    data: Vec<Task>,
 }
+
+#[get("/tasks")]
+fn tasks_get() -> Json<JsonApiResponse> {
+    let mut response = JsonApiResponse { data: vec![],};
+
+    let conn = establish_connection();
+    for task in query_task(&conn) {
+        response.data.push(task);
+    }
+    Json(response)
+}
+
+
 
 fn main() {
     rocket::ignite()
