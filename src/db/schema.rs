@@ -2,6 +2,6 @@ table! {
     task (id) {
         id -> Integer,
         title -> Text,
-        created_at -> Timestamp,
+        created_at -> Nullable<Timestamp>,
     }
 }
