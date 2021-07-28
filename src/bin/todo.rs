@@ -1,4 +1,4 @@
-use full_stack::db::{create_task, establish_connection};
+use full_stack::db::{create_task, establish_connection, query_task};
 use std::env;
 
 fn help() {
@@ -27,9 +27,11 @@ fn show_tasks(args: &[String]) {
     }
 
     let conn = establish_connection();
-    create_task(&conn, &args[0]);
+    println!("TASKS\n-----");
+    for task in query_task(&conn) {
+        println!("{}", task.title);
+    }
 }
-
 // ANCHOR_END: show_tasks
 
 fn main() {
@@ -47,3 +49,4 @@ fn main() {
         _ => help(),
     }
 }
+
