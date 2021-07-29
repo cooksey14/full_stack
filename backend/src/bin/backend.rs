@@ -7,22 +7,24 @@ extern crate rocket_contrib;
 #[macro_use]
 extern crate serde;
 
+use diesel::query_source;
 use rocket_contrib::json::Json;
 use backend::db::models::Task;
 use backend::db::{query_task, establish_connection};
+use full_stack::JsonApiResponse;
 
-#[derive(Serialize)]
-struct JsonApiResponse {
-    data: Vec<Task>,
-}
 
 #[get("/tasks")]
 fn tasks_get() -> Json<JsonApiResponse> {
     let mut response = JsonApiResponse { data: vec![],};
 
     let conn = establish_connection();
-    for task in query_task(&conn) {
-        response.data.push(task);
+    for db_task in query_task(&conn) {
+        let api_task = full_stack::Task {
+            id: db_task.id,
+            title: db_task.title,
+        };
+        response.data.push(api_task);
     }
     Json(response)
 }

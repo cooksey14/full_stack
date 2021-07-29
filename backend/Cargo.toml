@@ -9,6 +9,7 @@ edition = "2018"
 diesel = { version = "1.0.0", features = ["sqlite"] }
 rocket = "0.4.2"
 serde = { version = "1.0", features = ["derive"] }
+full_stack = { path = ".."}
 
 [dependencies.rocket_contrib]
 version = "0.4.2"
