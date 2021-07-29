@@ -8,8 +8,8 @@ extern crate rocket_contrib;
 extern crate serde;
 
 use rocket_contrib::json::Json;
-use full_stack::db::models::Task;
-use full_stack::db::{query_task, establish_connection};
+use backend::db::models::Task;
+use backend::db::{query_task, establish_connection};
 
 #[derive(Serialize)]
 struct JsonApiResponse {

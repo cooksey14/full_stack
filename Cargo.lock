@@ -74,6 +74,16 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "cdb031dd78e28731d87d56cc8ffef4a8f36ca26c38fe2de700543e627f8a464a"
 
 [[package]]
+name = "backend"
+version = "0.1.0"
+dependencies = [
+ "diesel",
+ "rocket",
+ "rocket_contrib",
+ "serde",
+]
+
+[[package]]
 name = "base64"
 version = "0.9.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -255,6 +265,10 @@ dependencies = [
  "redox_syscall",
  "winapi 0.3.9",
 ]
+
+[[package]]
+name = "frontend"
+version = "0.1.0"
 
 [[package]]
 name = "fsevent"
