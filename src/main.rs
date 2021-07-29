@@ -2,7 +2,6 @@ fn main() {
     println!("Hello, world!");
 }
 
-
 // How to add a task
 //cargo run -p backend --bin todo new 'task_name'
 
