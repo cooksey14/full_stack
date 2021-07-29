@@ -28,31 +28,27 @@ fn update(msg: Msg, model: &mut Model, _orders: &mut impl Orders<Msg>) {
 }
 
 fn view(model: &Model) -> impl View<Msg> {
-    let tasks: Vec::<Node<Msg>> = model.tasks.iter().map(|t| {
-        li![{t.title.clone()}]
-    }).collect();
+    let tasks: Vec<Node<Msg>> = model
+        .tasks
+        .iter()
+        .map(|t| li![{ t.title.clone() }])
+        .collect();
 
-    h1![
-        {"Tasks"},
-        ul![
-            tasks,
-        ],
-    ]
+    h1![{ "Tasks" }, ul![tasks,],]
 }
 
-fn fetch_drills() -> impl Future<Item = Msg, Error = Msg> {
+fn fetch_drills() -> impl Future<Output = Result<Msg, Msg>> {
     Request::new("http://localhost:8000/tasks/").fetch_json_data(Msg::FetchedTasks)
 }
 
-fn init(_url: Url, orders: &mut impl Orders<Msg>) -> Model {
+fn init(_url: Url, orders: &mut impl Orders<Msg>) -> AfterMount<Model> {
     orders.perform_cmd(fetch_drills());
-    Model {
-        tasks: vec![],
-    }
+    AfterMount::new(Model { tasks: vec![] })
 }
 
 #[wasm_bindgen(start)]
 pub fn render() {
-    seed::App::build(init, update, view).finish().run();
+    seed::App::builder(update, view)
+        .after_mount(init)
+        .build_and_start();
 }
-

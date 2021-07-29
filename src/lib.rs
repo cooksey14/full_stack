@@ -7,7 +7,7 @@ pub struct Task {
     pub title: String,
 }
 
-#[derive(Clone,Debug, Deserialize, Serialize)]
+#[derive(Clone, Debug, Deserialize, Serialize)]
 pub struct JsonApiResponse {
     pub data: Vec<Task>,
 }
