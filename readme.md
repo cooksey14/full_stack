@@ -9,4 +9,4 @@ To run this application you need to start the front and backend seperately. To d
 
 
 To create a new task:
-`<cargo +nightly run -p backend --bin todo new '<task_here>'>`
+`<cargo +nightly run -p backend --bin todo new '<task_here>'`
