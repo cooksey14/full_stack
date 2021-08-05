@@ -1,4 +1,4 @@
-##Colin's Full stack rust application
+##Colin's Full stack rust application##
 
 To run this application you need to start the front and backend seperately. To do this you can run the following commands:
 
