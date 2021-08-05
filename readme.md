@@ -5,7 +5,7 @@ To run this application you need to start the front and backend seperately. To d
 -Backend: `<cargo +nightly run -p backend --bin backend>`\
     -This needs to be executed from the root directory\
 -Frontend: In terminal run `<microserver>`\
-    -This needs to be execute from the `</fullstack/frontend>` directory\
+    -This needs to be execute from the `</fullstack/frontend>` directory
 
 
 To create a new task:
