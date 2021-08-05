@@ -12,6 +12,7 @@ use backend::db::{establish_connection, query_task};
 use diesel::query_source;
 use full_stack::JsonApiResponse;
 use rocket_contrib::json::Json;
+use rocket_cors::{AllowedHeaders, AllowedOrigins, Error};
 
 #[get("/tasks")]
 fn tasks_get() -> Json<JsonApiResponse> {
@@ -28,6 +29,26 @@ fn tasks_get() -> Json<JsonApiResponse> {
     Json(response)
 }
 
-fn main() {
-    rocket::ignite().mount("/", routes![tasks_get]).launch();
+//to run backend currently, we have to run with nightly.
+//There are a few features that cannot be used on the stable release channel yet.
+//Experimental features: #![feature(proc_macro_hygiene, decl_macro)]
+fn main() -> Result<(), Error> {
+    let allowed_origins = AllowedOrigins::all();
+
+    let cors = rocket_cors::CorsOptions {
+        allowed_origins,
+        allowed_headers: AllowedHeaders::some(&["Authorization", "Accept"]),
+        allow_credentials: true,
+        ..Default::default()
+    }
+    .to_cors()?;
+
+    rocket::ignite()
+        .mount("/", routes![tasks_get])
+        .attach(cors)
+        .launch();
+
+    Ok(())
 }
+
+
