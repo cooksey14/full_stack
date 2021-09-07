@@ -27,6 +27,7 @@ fn update(msg: Msg, model: &mut Model, _orders: &mut impl Orders<Msg>) {
     }
 }
 
+//View function that displays the tasks on the frontend
 fn view(model: &Model) -> impl View<Msg> {
     let tasks: Vec<Node<Msg>> = model
         .tasks
@@ -37,6 +38,7 @@ fn view(model: &Model) -> impl View<Msg> {
     h1![{ "Tasks" }, ul![tasks,],]
 }
 
+//fetch tasks from the backend
 fn fetch_drills() -> impl Future<Output = Result<Msg, Msg>> {
     Request::new("http://localhost:8000/tasks/").fetch_json_data(Msg::FetchedTasks)
 }

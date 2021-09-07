@@ -7,8 +7,11 @@ extern crate rocket_contrib;
 #[macro_use]
 extern crate serde;
 
-use backend::db::models::Task;
-use backend::db::{establish_connection, query_task};
+mod db;
+mod todo;
+
+use db::models::Task;
+use db::{establish_connection, query_task};
 use diesel::query_source;
 use full_stack::JsonApiResponse;
 use rocket_contrib::json::Json;
@@ -50,5 +53,3 @@ fn main() -> Result<(), Error> {
 
     Ok(())
 }
-
-

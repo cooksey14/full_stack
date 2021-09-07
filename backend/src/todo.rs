@@ -1,4 +1,4 @@
-use backend::db::{create_task, establish_connection, query_task};
+use db::{create_task, establish_connection, query_task};
 use std::env;
 
 fn help() {
